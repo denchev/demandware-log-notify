@@ -1,15 +1,27 @@
-// Run our kitten generation script as soon as the document's DOM is ready.
-document.addEventListener('DOMContentLoaded', function () {
-  //chrome.alarms.create("nightWatcher", {});
+function make_base_auth(user, password) {
+  var tok = user + ':' + password;
+  var hash = btoa(tok);
+  return "Basic " + hash;
+}
 
-  var req = new XMLHttpRequest();
-  req.open('GET', 'https://dev30.web03.ecommera.demandware.net/on/demandware.servlet/webdav/Sites/Logs/error-blade1-2-appserver-20140428.log', true);
-  req.onload = function() {
-    
+document.addEventListener('DOMContentLoaded', function () {
+
+  var username = 'devadmin',
+      password = 'sofia2010'
+
+  $.ajax
+({
+  type: "GET",
+  url: "https://dev30.web03.ecommera.demandware.net/on/demandware.servlet/webdav/Sites/Logs/error-blade1-2-appserver-20140428.log",
+  beforeSend: function (xhr){ 
+        xhr.setRequestHeader('Authorization', make_base_auth(username, password)); 
+    },
+  success: function (response){
     var regex = new RegExp(/\[\d+\-\d+\-\d+ \d+:\d+:\d+\.\d+ GMT]/);
 
-   var errors = this.responseText.split(regex);
-   var notifId = "demandware_" + parseInt( Math.random()*100000000 );
+   var errors = response.split(regex);
+   var date = new Date();
+   var notifId = "demandware_" + date.getFullYear() + '_' + date.getMonth() + '_' + date.getDate() + '_' + errors.length + Math.random();
 
    chrome.notifications.create(notifId, {
     title : "New error",
@@ -20,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('Creation callback');
    });
   }
-  req.send(null);
+});
 
   //chrome.alarms.create("alarm_id", {
   //  delayInMinutes : 1,

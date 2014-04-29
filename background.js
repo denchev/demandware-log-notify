@@ -9,10 +9,10 @@ var settings = null;
 function do_notifications() {
 
   var d = new Date(), year = d.getFullYear(), month = ('0' + (d.getMonth()+1)).slice(-2),date = d.getDate();
-console.log(settings);
+
   $.ajax({
     type: "GET",
-    url: "https://" + settings.demandware_server + "/on/demandware.servlet/webdav/Sites/Logs/error-blade1-2-appserver-" + year + month + date + ".log",
+    url: "https://" + settings.demandware_server + "/on/demandware.servlet/webdav/Sites/Logs/error-blade" + settings.demandware_blade_1 + "-" + settings.demandware_blade_2 + "-appserver-" + year + month + date + ".log",
     beforeSend: function (xhr){ 
         xhr.setRequestHeader('Authorization', make_base_auth(settings.demandware_username, settings.demandware_password)); 
     },
@@ -40,7 +40,7 @@ console.log(settings);
 
 }
 
-chrome.storage.local.get(['demandware_server', 'demandware_username', 'demandware_password'], function(_settings) {
+chrome.storage.local.get(['demandware_server', 'demandware_username', 'demandware_password', 'demandware_blade_1', 'demandware_blade_2'], function(_settings) {
   settings = _settings;
   do_notifications();
 });

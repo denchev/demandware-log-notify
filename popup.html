@@ -9,10 +9,27 @@
       }
       fieldset {
         border: none;
+        min-width: 500px;
+        padding: 0;
+        margin: 0;
+      }
+      .form {
+        padding: 10px;
+      }
+      .form label {
+        display: block;
+        float: left;
+        width: 100px;
+      }
+      .form input[type=text],
+      .form input[type=password] {
+        width: 250px;
       }
     </style>
-
+    <div class="form">
+    <img src="demandware_logo.png" alt="Demandware">
     <fieldset>
+      <h3>Server connection</h3>
       <div class="row">
         <label for="server">Server</label>
         <input type="text" name="server" id="server">
@@ -25,10 +42,43 @@
         <label for="password">Password</label>
         <input type="password" name="password" id="password">
       </div>
+      <h3>Blade settings</h3>
+      <div class="row">
+        <label for="blade-1">Blade 1</label>
+        <select id="blade-1">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+      </div>
+      <div class="row">
+        <label for="blade-2">Blade 2</label>
+        <select id="blade-2">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+      </div>
+      <h3>Logs</h3>
       <div class="row">
         <input type="submit" value="Save" id="save">
       </div>
     </fieldset>
+  </div>
 
     <!--
       - JavaScript and HTML must be in separate files: see our Content Security

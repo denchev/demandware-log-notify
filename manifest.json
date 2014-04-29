@@ -6,7 +6,7 @@
   "version": "1.0",
 
   "permissions": [
-    "https://dev30.web03.ecommera.demandware.net/", "notifications", "alarms"
+    "https://dev30.web03.ecommera.demandware.net/", "notifications", "alarms", "storage"
   ],
   "browser_action": {
     "default_icon": "icon.png",

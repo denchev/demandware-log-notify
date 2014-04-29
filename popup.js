@@ -4,17 +4,17 @@ function make_base_auth(user, password) {
   return "Basic " + hash;
 }
 
-var username = 'devadmin',
-      password = 'sofia2010';
-
-
 function do_notifications() {
 
   var d = new Date(), year = d.getFullYear(), month = ('0' + (d.getMonth()+1)).slice(-2),date = d.getDate();
 
+  var server = StorageArea.get('demandware_server'),
+      username = StorageArea.get('demandware_username'),
+      password = StorageArea.get('demandware_password');
+
   $.ajax({
     type: "GET",
-    url: "https://dev30.web03.ecommera.demandware.net/on/demandware.servlet/webdav/Sites/Logs/error-blade1-2-appserver-" + year + month + date + ".log",
+    url: "https://" + server + "/on/demandware.servlet/webdav/Sites/Logs/error-blade1-2-appserver-" + year + month + date + ".log",
     beforeSend: function (xhr){ 
         xhr.setRequestHeader('Authorization', make_base_auth(username, password)); 
     },
@@ -44,6 +44,30 @@ function do_notifications() {
 
 document.addEventListener('DOMContentLoaded', function () {
 
+  $('#save').on('click', function() {
+
+    var username = $('#username'),
+        server = $('#server'),
+        password = $('#password');
+
+    chrome.storage.sync.set({'demandware_server' : server, 'demandware_username' : username, 'demandware_password' : password}, function() {
+      console.log('Save settings');
+    });
+
+    return false;
+  });
+
  do_notifications();
+
+ chrome.alarms.create('demandware_realtime', {
+  periodInMinutes : 1,
+  delayInMinutes : 1
+ });
+
+ chrome.alarms.onAlarm.addListener(function(alarm) {
+  if(alarm.name == 'demandware_realtime') {
+    do_notifications();
+  }
+ });
 
 });

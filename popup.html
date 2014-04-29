@@ -1,21 +1,31 @@
 <!doctype html>
 <html>
   <head>
-    <title>Getting Started Extension's Popup</title>
+    <title></title>
     <style>
-      body {
-        min-width: 357px;
-        overflow-x: hidden;
-      }
-
-      img {
-        margin: 5px;
-        border: 2px solid black;
-        vertical-align: middle;
-        width: 75px;
-        height: 75px;
+      .row {
+        clear: both;
+        padding: 10px 0;
       }
     </style>
+
+    <fieldset>
+      <div class="row">
+        <label for="server">Server</label>
+        <input type="text" name="server" id="server">
+      </div>
+      <div class="row">
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username">
+      </div>
+      <div class="row">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password">
+      </div>
+      <div class="row">
+        <input type="submit" value="Save" id="save">
+      </div>
+    </fieldset>
 
     <!--
       - JavaScript and HTML must be in separate files: see our Content Security

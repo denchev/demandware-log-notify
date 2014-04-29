@@ -25,6 +25,10 @@
       .form input[type=password] {
         width: 250px;
       }
+      .form input[type=checkbox] {
+        display: inline-block;
+        vertical-align: middle;
+      }
     </style>
     <div class="form">
     <img src="demandware_logo.png" alt="Demandware">
@@ -75,6 +79,24 @@
       </div>
       <h3>Logs</h3>
       <div class="row">
+        <input type="checkbox" id="log-error">Error
+      </div>
+      <div class="row">
+        <input type="checkbox" id="log-debug">Debug
+      </div>
+      <div class="row">
+        <input type="checkbox" id="log-customerror">Custom error
+      </div>
+      <div class="row">
+        <input type="checkbox" id="log-customfatal">Custom fatal
+      </div>
+      <div class="row">
+        <input type="checkbox" id="log-custominfo">Custom info
+      </div>
+      <div class="row">
+        <input type="checkbox" id="log-customwarn">Custom warn
+      </div>
+      <div class="row">
         <input type="submit" value="Save" id="save">
       </div>
     </fieldset>
@@ -87,6 +109,7 @@
       - [1]: http://developer.chrome.com/extensions/contentSecurityPolicy.html
      -->
     <script src="jquery-2.1.0.min.js"></script>
+    <script src="settings_list.js"></script>
     <script src="popup.js"></script>
   </head>
   <body>

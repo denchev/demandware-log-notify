@@ -1,32 +1,42 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-  chrome.storage.local.get(['demandware_server', 'demandware_username', 'demandware_password', 'demandware_blade_1', 'demandware_blade_2'], function(items) {
-    $('#server').val(items.demandware_server);
-    $('#username').val(items.demandware_username);
-    $('#password').val(items.demandware_password);
-    $('#blade-1').val(items.demandware_blade_1);
-    $('#blade-2').val(items.demandware_blade_2);
-    console.log(items);
+  chrome.storage.local.get(settings_list, function(items) {
+
+    for(var i = 0, n = settings_list.length; i < n; i+=1) {
+      var field = $('#' + settings_list[i]);
+
+      if(field.attr('type') == 'checkbox') {
+        if(items[settings_list[i]]) {
+          field.attr('checked', true);
+        }
+      } else {
+
+        $('#' + settings_list[i]).val(items[settings_list[i]]);
+      }
+    }
   });
 
   $('#save').on('click', function() {
 
-    var username = $('#username').val(),
-        server = $('#server').val(),
-        password = $('#password').val(),
-        blade_1 = $('#blade-1').val(),
-        blade_2 = $('#blade-2').val();
+    var save_settings_list = {};
 
-    chrome.storage.local.set({
-      'demandware_server' : server, 
-      'demandware_username' : username, 
-      'demandware_password' : password,
-      'demandware_blade_1' : blade_1,
-      'demandware_blade_2' : blade_2}, function() {
+    for(var i = 0, n = settings_list.length; i < n; i+=1) {
 
-      console.log('Save settings');
+      var field = $('#' + settings_list[i]),
+          val = null;
 
-      // Check if settings are valid
+      if(field.attr('type') == 'checkbox') {
+        val = field.is(':checked');
+      } else {
+        val = field.val();
+      }
+
+      save_settings_list[settings_list[i]] = val;
+    }
+
+    chrome.storage.local.set(save_settings_list, function() {
+
+      console.log('Save settings_list');
     });
 
     return false;

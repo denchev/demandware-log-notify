@@ -4,7 +4,7 @@ function make_base_auth(user, password) {
   return "Basic " + hash;
 }
 
-var settings = null;
+var settings = {};
 
 function do_notifications() {
 
@@ -12,9 +12,9 @@ function do_notifications() {
 
   $.ajax({
     type: "GET",
-    url: "https://" + settings.demandware_server + "/on/demandware.servlet/webdav/Sites/Logs/error-blade" + settings.demandware_blade_1 + "-" + settings.demandware_blade_2 + "-appserver-" + year + month + date + ".log",
+    url: "https://" + settings.server + "/on/demandware.servlet/webdav/Sites/Logs/error-blade" + settings['blade-1'] + "-" + settings['blade-2'] + "-appserver-" + year + month + date + ".log",
     beforeSend: function (xhr){ 
-        xhr.setRequestHeader('Authorization', make_base_auth(settings.demandware_username, settings.demandware_password)); 
+        xhr.setRequestHeader('Authorization', make_base_auth(settings.username, settings.password)); 
     },
     error : function() {
       console.log('File does not exists.');
@@ -25,7 +25,7 @@ function do_notifications() {
 
       var errors = response.split(regex);
       var date = new Date();
-      var notifId = "demandware_" + date.getFullYear() + '_' + date.getMonth() + '_' + date.getDate() + '_' + errors.length + Math.random();
+      var notifId = "" + date.getFullYear() + '_' + date.getMonth() + '_' + date.getDate() + '_' + errors.length + Math.random();
 
       chrome.notifications.create(notifId, {
         title : "New error",
@@ -40,18 +40,18 @@ function do_notifications() {
 
 }
 
-chrome.storage.local.get(['demandware_server', 'demandware_username', 'demandware_password', 'demandware_blade_1', 'demandware_blade_2'], function(_settings) {
-  settings = _settings;
+chrome.storage.local.get(settings_list, function(_settings) {
+  settings = $.extend(settings, _settings);
   do_notifications();
 });
 
-chrome.alarms.create('demandware_realtime', {
+chrome.alarms.create('realtime', {
   periodInMinutes : 1,
   delayInMinutes : 1
  });
 
  chrome.alarms.onAlarm.addListener(function(alarm) {
-  if(alarm.name == 'demandware_realtime') {
+  if(alarm.name == 'realtime') {
     do_notifications();
   }
  });

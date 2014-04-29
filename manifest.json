@@ -10,7 +10,7 @@
   ],
 
   "background" : {
-      "scripts" : ["jquery-2.1.0.min.js", "background.js"]
+      "scripts" : ["settings_list.js", "jquery-2.1.0.min.js", "background.js"]
     },
 
   "browser_action": {

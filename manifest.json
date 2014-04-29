@@ -6,7 +6,7 @@
   "version": "1.0",
 
   "permissions": [
-    "https://dev30.web03.ecommera.demandware.net/", "notifications", "alarms", "storage"
+    "https://*.demandware.net/", "notifications", "alarms", "storage"
   ],
 
   "background" : {

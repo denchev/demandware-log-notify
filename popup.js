@@ -4,19 +4,17 @@ function make_base_auth(user, password) {
   return "Basic " + hash;
 }
 
+var settings = null;
+
 function do_notifications() {
 
   var d = new Date(), year = d.getFullYear(), month = ('0' + (d.getMonth()+1)).slice(-2),date = d.getDate();
 
-  var server = StorageArea.get('demandware_server'),
-      username = StorageArea.get('demandware_username'),
-      password = StorageArea.get('demandware_password');
-
   $.ajax({
     type: "GET",
-    url: "https://" + server + "/on/demandware.servlet/webdav/Sites/Logs/error-blade1-2-appserver-" + year + month + date + ".log",
+    url: "https://" + settings.demandware_server + "/on/demandware.servlet/webdav/Sites/Logs/error-blade1-2-appserver-" + year + month + date + ".log",
     beforeSend: function (xhr){ 
-        xhr.setRequestHeader('Authorization', make_base_auth(username, password)); 
+        xhr.setRequestHeader('Authorization', make_base_auth(settings.demandware_username, settings.demandware_password)); 
     },
     error : function() {
       console.log('File does not exists.');
@@ -44,13 +42,21 @@ function do_notifications() {
 
 document.addEventListener('DOMContentLoaded', function () {
 
+  chrome.storage.local.get(['demandware_server', 'demandware_username', 'demandware_password'], function(items) {
+    $('#server').val(items.demandware_server);
+    $('#username').val(items.demandware_username);
+    $('#password').val(items.demandware_password);
+
+    settings = items;
+  });
+
   $('#save').on('click', function() {
 
-    var username = $('#username'),
-        server = $('#server'),
-        password = $('#password');
+    var username = $('#username').val(),
+        server = $('#server').val(),
+        password = $('#password').val();
 
-    chrome.storage.sync.set({'demandware_server' : server, 'demandware_username' : username, 'demandware_password' : password}, function() {
+    chrome.storage.local.set({'demandware_server' : server, 'demandware_username' : username, 'demandware_password' : password}, function() {
       console.log('Save settings');
     });
 

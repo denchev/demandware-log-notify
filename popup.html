@@ -5,10 +5,11 @@
     <style>
       body {
         background: rgb(230, 245, 214);
+        min-height: 500px;
       }
       .row {
         clear: both;
-        padding: 5px 0;
+        padding: 3px 0;
       }
       fieldset {
         border: none;
@@ -41,8 +42,16 @@
         padding: 5px 0;
         font-size: 16px;
       }
+      .alert {
+        padding: 10px;
+        background: rgb(103, 167, 36);
+        text-align: center;
+        color: #FFF;
+        margin-bottom: 10px;
+      }
     </style>
     <div class="form">
+      <div id="alert"></div>
     <img src="demandware_logo.png" alt="Demandware">
     <fieldset>
       <h3>Server connection</h3>

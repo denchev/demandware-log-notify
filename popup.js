@@ -36,7 +36,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     chrome.storage.local.set(save_settings_list, function() {
 
-      console.log('Save settings_list');
+      $('#alert').html('<div class="alert">Settings saved successfully</div>').fadeIn();
+
+      setTimeout(function() {
+        $('#alert').fadeOut();
+      }, 2000);
+
+      
     });
 
     return false;

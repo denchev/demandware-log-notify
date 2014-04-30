@@ -3,9 +3,12 @@
   <head>
     <title></title>
     <style>
+      body {
+        background: rgb(230, 245, 214);
+      }
       .row {
         clear: both;
-        padding: 10px 0;
+        padding: 5px 0;
       }
       fieldset {
         border: none;
@@ -28,6 +31,15 @@
       .form input[type=checkbox] {
         display: inline-block;
         vertical-align: middle;
+      }
+      .columns .column {
+        float: left;
+        width: 50%;
+      }
+      h3 {
+        margin: 0;
+        padding: 5px 0;
+        font-size: 16px;
       }
     </style>
     <div class="form">
@@ -80,23 +92,41 @@
         </select>
       </div>
       <h3>Logs</h3>
-      <div class="row">
-        <input type="checkbox" id="log-error">Error
-      </div>
-      <div class="row">
-        <input type="checkbox" id="log-debug">Debug
-      </div>
-      <div class="row">
-        <input type="checkbox" id="log-customerror">Custom error
-      </div>
-      <div class="row">
-        <input type="checkbox" id="log-customfatal">Custom fatal
-      </div>
-      <div class="row">
-        <input type="checkbox" id="log-custominfo">Custom info
-      </div>
-      <div class="row">
-        <input type="checkbox" id="log-customwarn">Custom warn
+      <div class="columns">
+        <div class="column">
+          <div class="row">
+            <input type="checkbox" id="log-error">Error
+          </div>
+          <div class="row">
+            <input type="checkbox" id="log-debug">Debug
+          </div>
+           <div class="row">
+            <input type="checkbox" id="log-jobs">Jobs
+          </div>
+          <div class="row">
+            <input type="checkbox" id="log-quota">Quota
+          </div>
+           <div class="row">
+            <input type="checkbox" id="log-api">Api
+          </div>
+          <div class="row">
+            <input type="checkbox" id="log-warn">Warn
+          </div>
+        </div>
+        <div class="column">
+          <div class="row">
+            <input type="checkbox" id="log-customerror">Custom error
+          </div>
+          <div class="row">
+            <input type="checkbox" id="log-customfatal">Custom fatal
+          </div>
+          <div class="row">
+            <input type="checkbox" id="log-custominfo">Custom info
+          </div>
+          <div class="row">
+            <input type="checkbox" id="log-customwarn">Custom warn
+          </div>
+        </div>
       </div>
       <div class="row">
         <input type="submit" value="Save" id="save">

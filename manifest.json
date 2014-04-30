@@ -3,7 +3,7 @@
 
   "name": "Demandware Logs Notifier",
   "description": "Recieve a notification everytime there is an update to your Demandware logs.",
-  "version": "1.0",
+  "version": "1.0.1",
 
   "permissions": [
     "https://*.demandware.net/", "notifications", "alarms", "storage"

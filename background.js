@@ -1,9 +1,3 @@
-function make_base_auth(user, password) {
-  var tok = user + ':' + password;
-  var hash = btoa(tok);
-  return "Basic " + hash;
-}
-
 var settings = {};
 
 function start_watch(log_type) {
@@ -11,7 +5,7 @@ function start_watch(log_type) {
 
   $.ajax({
     type: "GET",
-    url: "https://" + settings.server + "/on/demandware.servlet/webdav/Sites/Logs/" + log_type + "-blade" + settings['blade-1'] + "-" + settings['blade-2'] + "-appserver-" + year + month + date + ".log",
+    url: "https://" + settings.server + logs_path + log_type + "-blade" + settings['blade-1'] + "-" + settings['blade-2'] + "-appserver-" + year + month + date + ".log",
     beforeSend: function (xhr){ 
         xhr.setRequestHeader('Authorization', make_base_auth(settings.username, settings.password)); 
     },

@@ -1,3 +1,5 @@
+var settings = {};
+
 document.addEventListener('DOMContentLoaded', function () {
 
   chrome.storage.local.get(settings_list, function(items) {
@@ -32,16 +34,26 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       save_settings_list[settings_list[i]] = val;
+
     }
 
     chrome.storage.local.set(save_settings_list, function() {
 
-      $('#alert').html('<div class="alert">Settings saved successfully</div>').fadeIn();
+      settings = save_settings_list;
 
-      setTimeout(function() {
-        $('#alert').fadeOut();
-      }, 2000);
+      test_connection(function(status) {
+        if(status == 'error') {
 
+          $('#alert').html('<div class="alert error">A connection to your server cannot be made. Either your connection settings are wrong or your server is using untrusted certificate. Please open this <a href="https://' + settings.server + logs_path + '">url</a> to check which is it.</div>');
+          open_link_in_tab();
+        } else {
+          $('#alert').html('<div class="alert">Settings saved successfully</div>').fadeIn();
+
+        setTimeout(function() {
+          $('#alert').fadeOut();
+        }, 2000);
+        }
+      });
       
     });
 

@@ -3,14 +3,14 @@
 
   "name": "Demandware Logs Notifier",
   "description": "Recieve a notification everytime there is an update to your Demandware logs.",
-  "version": "1.0.2",
+  "version": "1.0.3",
 
   "permissions": [
-    "https://*.demandware.net/", "notifications", "alarms", "storage"
+    "https://*.demandware.net/", "notifications", "alarms", "storage", "tabs"
   ],
 
   "background" : {
-      "scripts" : ["settings_list.js", "jquery-2.1.0.min.js", "background.js"]
+      "scripts" : ["settings_list.js", "functions.js", "jquery-2.1.0.min.js", "background.js"]
     },
 
   "browser_action": {
